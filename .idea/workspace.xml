@@ -32,7 +32,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="311">
-                <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+                <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
               </first_editor>
               <second_editor />
             </state>
@@ -116,7 +116,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573800058940" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573800768779" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -149,7 +149,7 @@
       <option name="presentableId" value="Default" />
       <updated>1567502727789</updated>
       <workItem from="1567502733513" duration="1756000" />
-      <workItem from="1573798119120" duration="2030000" />
+      <workItem from="1573798119120" duration="2551000" />
     </task>
     <task id="LOCAL-00001" summary="初版测试">
       <created>1573798847714</created>
@@ -197,7 +197,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3786000" />
+    <option name="totallyTimeSpent" value="4307000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="484" y="148" width="1543" height="851" extended-state="0" />
@@ -303,7 +303,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="311">
-            <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+            <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
           </first_editor>
           <second_editor />
         </state>

@@ -1,7 +1,7 @@
 <!-- GFM-TOC -->
 * [一、概览](#一概览)
 * [二、磁盘操作](#二磁盘操作)
-* [三、字节操作](#三字节操作)
+* [三、图片的插入方式](#三图片的插入方式)
 
 
 # 一、概览
@@ -21,9 +21,14 @@ File 类可以用于表示文件和目录的信息，但是它不表示文件的
 
 递归地列出一个目录下所有文件：
 
+# 三、图片的插入方式
+
 ![Image](https://github.com/zhangzeGIT/note/blob/master/assets/1.png)
 
 <div align="center">
     <img src="https://github.com/zhangzeGIT/note/blob/master/assets/1.png" width="200px">
+</div>
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/张泽.png" width="400px">
 </div>
 
