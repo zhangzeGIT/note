@@ -20,3 +20,7 @@
 File 类可以用于表示文件和目录的信息，但是它不表示文件的内容。
 
 递归地列出一个目录下所有文件：
+
+<div align="center">
+    <img src="assets/1.png" width="200px">
+</div>
