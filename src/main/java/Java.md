@@ -1,6 +1,8 @@
 <!-- GFM-TOC -->
 * [一、概览](#一概览)
 * [二、磁盘操作](#二磁盘操作)
+    * [IO](#IO)
+    * [HH](#HH)
 * [三、图片的插入方式](#三图片的插入方式)
 
 
@@ -16,12 +18,24 @@
     - 新的输入/输出：NIO
 
 # 二、磁盘操作
+ ## IO
+    hhh
+ ## HH
+    DDDDDD
+    DDDD
+    DDDDDD
+    DDDDD
 
 File 类可以用于表示文件和目录的信息，但是它不表示文件的内容。
 
 递归地列出一个目录下所有文件：
 
 # 三、图片的插入方式
+
+```java
+FileInputStream fileInputStream = new FileInputStream(filePath);
+BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+```
 
 ![Image](https://github.com/zhangzeGIT/note/blob/master/assets/1.png)
 
