@@ -24,5 +24,6 @@ File 类可以用于表示文件和目录的信息，但是它不表示文件的
 ![Image](https://github.com/zhangzeGIT/note/blob/master/assets/1.png)
 
 <div align="center">
-    <img src="assets/1.png" width="200px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/1.png" width="200px">
 </div>
+
