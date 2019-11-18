@@ -1,21 +1,17 @@
 <!-- GFM-TOC -->
-* [一、概览](#一概览)
+* [一、CAP](#一CAP)
 * [二、磁盘操作](#二磁盘操作)
     * [IO](#IO)
     * [HH](#HH)
 * [三、图片的插入方式](#三图片的插入方式)
 
 
-# 一、概览
+# 一、CAP
 
-    Java 的 I/O 大概可以分成以下几类：
-
-    - 磁盘操作：File
-    - 字节操作：InputStream 和 OutputStream
-    - 字符操作：Reader 和 Writer
-    - 对象操作：Serializable
-    - 网络操作：Socket
-    - 新的输入/输出：NIO
+    C：Consistency         一致性
+    A：Availability        可用性
+    P：Partition tolerance 分区容错性
+        分布式系统在遇到任何网络分区故障的时候，仍能保证对外提供满足一致性和可用性的服务，除非整个网络都发生了故障。
 
 # 二、磁盘操作
  ## IO
@@ -25,6 +21,14 @@
     DDDD
     DDDDDD
     DDDDD
+    
+    AQS
+    BASE
+    CountDownLatch
+    CyclicBarrier  赛克雷克：环的，循环的  拜瑞尔：屏障
+    Semaphore      赛么for：信号量
+    parallel       派瑞拉：平行线
+    ParNew GC      开行GC
 
 File 类可以用于表示文件和目录的信息，但是它不表示文件的内容。
 
