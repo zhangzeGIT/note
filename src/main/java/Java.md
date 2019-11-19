@@ -43,10 +43,10 @@ BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStrea
 
 ![Image](https://github.com/zhangzeGIT/note/blob/master/assets/1.png)
 
-<div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/1.png" width="200px">
-</div>
-<div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/张泽.png" width="400px">
-</div>
+    <div align="center">
+        <img src="https://github.com/zhangzeGIT/note/blob/master/assets/1.png" width="200px">
+    </div>
+    <div align="center">
+        <img src="https://github.com/zhangzeGIT/note/blob/master/assets/张泽.png" width="400px">
+    </div>
 
