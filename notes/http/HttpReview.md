@@ -25,7 +25,7 @@
     TCP规定，ACK报文段可以携带数据，但是如果不携带数据则不消耗序号。这里客户端表示我已经准备好。
     
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/三次握手.png" width="400px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/三次握手.png" width="800px">
 </div>
 
 
