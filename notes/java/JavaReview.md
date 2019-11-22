@@ -15,7 +15,7 @@
     * [4、内部类](#4内部类)
     * [5、final作用域](#5final作用域)
     * [6、基本数据类型及长度](#6基本数据类型及长度)
-    * [7、==与equals的区别](#7==与equals的区别)
+    * [7、等等与equals的区别](#7等等与equals的区别)
 
 
 
@@ -277,7 +277,7 @@ JDK：Java Development ToolKit，java开发工具包，除了JRE和JVM外，还�
     <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/基本数据类型.png" width="650px">
 </div>
 
-## 7、==与equals的区别
+## 7、等等与equals的区别
 
 ### ==
 
