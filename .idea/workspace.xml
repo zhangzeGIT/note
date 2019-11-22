@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e73028a9-9b7d-4b68-b4eb-2b8a09dd5ae7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes/java/JavaReview.md" beforeDir="false" afterPath="$PROJECT_DIR$/notes/java/JavaReview.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -31,8 +30,8 @@
         <entry file="file://$PROJECT_DIR$/notes/java/JavaReview.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="378">
-                <caret line="215" column="5" selection-start-line="215" selection-start-column="5" selection-end-line="215" selection-end-column="5" />
+              <first_editor relative-caret-position="108">
+                <caret line="4" column="29" lean-forward="true" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
               </first_editor>
               <second_editor />
             </state>
@@ -157,7 +156,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.idea/workspace.xml" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574411806812" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574412269073" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../CS-Notes" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -202,7 +201,7 @@
       <workItem from="1574216459310" duration="2691000" />
       <workItem from="1574229856062" duration="4829000" />
       <workItem from="1574243763557" duration="20178000" />
-      <workItem from="1574388293251" duration="13066000" />
+      <workItem from="1574388293251" duration="13698000" />
     </task>
     <task id="LOCAL-00001" summary="初版测试">
       <created>1573798847714</created>
@@ -250,10 +249,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63733000" />
+    <option name="totallyTimeSpent" value="64365000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="264" y="81" width="1138" height="813" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21150278" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -457,8 +457,8 @@
     <entry file="file://$PROJECT_DIR$/notes/java/JavaReview.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="378">
-            <caret line="215" column="5" selection-start-line="215" selection-start-column="5" selection-end-line="215" selection-end-column="5" />
+          <first_editor relative-caret-position="108">
+            <caret line="4" column="29" lean-forward="true" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
           </first_editor>
           <second_editor />
         </state>
