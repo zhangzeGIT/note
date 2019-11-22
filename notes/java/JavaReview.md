@@ -12,6 +12,10 @@
     * [1、JVM-JRE-JDK](#1JVM-JRE-JDK)
     * [2、接口与抽象类](#2接口与抽象类)
     * [3、多态](#3多态)
+    * [4、内部类](#4内部类)
+    * [5、final作用域](#5final作用域)
+    * [6、基本数据类型及长度](#6基本数据类型及长度)
+    * [7、==与equals的区别](#7==与equals的区别)
 
 
 
@@ -205,7 +209,7 @@ JConsole、VisualVM
 用户自定义加载器
 
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/类加载器.jpg" width="650px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/类加载器.png" width="650px">
 </div>
 
 
@@ -236,9 +240,51 @@ JDK：Java Development ToolKit，java开发工具包，除了JRE和JVM外，还�
 
 ## 3、多态
 
+### 编译时多态
 
+方法的重载（多个同名方法）
 
+### 运行时多态
 
+方法的覆盖
 
+## 4、内部类
 
+### 静态内部类
+
+不能访问非静态成员
+
+### 成员内部类
+
+不能有静态成员
+
+### 局部内部类
+
+只能访问方法中定义为final类型的局部变量
+
+### 匿名内部类
+
+## 5、final作用域
+
+属性不可变
+方法不可覆盖
+类不可继承
+
+## 6、基本数据类型及长度
+
+基本数据类型按值传递，封装类型按引用传递
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/基本数据类型.png" width="650px">
+</div>
+
+## 7、==与equals的区别
+
+### ==
+
+基本数据类型按值比较
+引用类型按首地址比较
+
+### equals
+
+默认调用==
 
