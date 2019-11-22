@@ -10,7 +10,8 @@
 * [二、多线程](#二多线程)
 * [三、基础知识](#三基础知识)
     * [1、JVM-JRE-JDK](#1JVM-JRE-JDK)
-    * [2、JVM](#2JVM)
+    * [2、接口与抽象类](#2接口与抽象类)
+    * [3、多态](#3多态)
 
 
 
@@ -221,11 +222,19 @@ JRE：Java Runtime Environmental，java运行时环境，包括JVM和java的常�
 
 JDK：Java Development ToolKit，java开发工具包，除了JRE和JVM外，还包含java，javac等一些工具
 
-## 2、JVM
+## 2、接口与抽象类
 
-DDDDDDDDDDDDDD
+### 接口
+    
+常量默认使用public static final修饰，并且初值
+所有方法都是抽象的
+成员作用域都是public
 
+### 抽象类
 
+子类和父类之间存在逻辑上的层次结构时，推荐使用抽象类。
+
+## 3、多态
 
 
 
