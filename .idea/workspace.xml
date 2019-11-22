@@ -31,8 +31,8 @@
         <entry file="file://$PROJECT_DIR$/notes/java/JavaReview.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="162">
-                <caret line="18" column="3" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+              <first_editor relative-caret-position="305">
+                <caret line="225" column="14" selection-start-line="225" selection-start-column="14" selection-end-line="225" selection-end-column="14" />
               </first_editor>
               <second_editor />
             </state>
@@ -157,7 +157,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.idea/workspace.xml" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574412676213" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574412788375" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../CS-Notes" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -202,7 +202,7 @@
       <workItem from="1574216459310" duration="2691000" />
       <workItem from="1574229856062" duration="4829000" />
       <workItem from="1574243763557" duration="20178000" />
-      <workItem from="1574388293251" duration="13959000" />
+      <workItem from="1574388293251" duration="14217000" />
     </task>
     <task id="LOCAL-00001" summary="初版测试">
       <created>1573798847714</created>
@@ -250,7 +250,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64626000" />
+    <option name="totallyTimeSpent" value="64884000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="264" y="81" width="1138" height="813" extended-state="0" />
@@ -457,8 +457,8 @@
     <entry file="file://$PROJECT_DIR$/notes/java/JavaReview.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="162">
-            <caret line="18" column="3" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <first_editor relative-caret-position="305">
+            <caret line="225" column="14" selection-start-line="225" selection-start-column="14" selection-end-line="225" selection-end-column="14" />
           </first_editor>
           <second_editor />
         </state>
