@@ -16,6 +16,11 @@
     * [5、final作用域](#5final作用域)
     * [6、基本数据类型及长度](#6基本数据类型及长度)
     * [7、等等与equals的区别](#7等等与equals的区别)
+    * [8、hashCode与equals关系](#8hashCode与equals关系)
+    * [9、String与StringBuilder与StringBuffer](#9String与StringBuilder与StringBuffer)
+    * [10、String为什么设计成不可变](#10String为什么设计成不可变)
+    * [11、String通过什么方式保证不可变](#11String通过什么方式保证不可变)
+    * [12、String一定不可变吗](#12String一定不可变吗)
 
 
 
@@ -287,4 +292,70 @@ JDK：Java Development ToolKit，java开发工具包，除了JRE和JVM外，还�
 ### equals
 
 默认调用==
+
+## 8、hashCode与equals关系
+
+一般复写equals方法也要覆盖hashcode方法，否则会导致基于散列值的集合不可用
+
+equals和hashcode之间的关系
+
+    equals相等，hashcode必相等
+    equals不相等，hashcode可能相等，可能不等
+    hashcode返回值不相等，equals必不相等
+    hashcode返回值相等，equals可能等，可能不等
+
+## 9、String与StringBuilder与StringBuffer
+
+### String
+
+不可变字符序列
+
+### StringBuilder
+
+可变的线程不安全字符序列
+
+### StringBuffer
+
+可变的线程安全字符序列
+
+## 10、String为什么设计成不可变
+
+### 安全
+不仅体现应用中，java类装载机制通过传递类名（字符串）加载类，如果可变，一些人通过自定义类装载机制分分钟黑掉应用
+
+### 性能
+String Pool，可在初始化时直接计算出hash值
+
+### 线程安全
+
+## 11、String通过什么方式保证不可变
+
+底层通过数组实现，数组的作用域为private final char value[];
+
+## 12、String一定不可变吗
+
+因为String的value是final的，所以不能指向其他数组对象
+
+那么，我们可以更改数组里的值吗？
+
+可以，通过反射，反射可以访问私有成员，并修改数据
+
+    public static void testReflection() throws Exception {
+        String s = "Hello World";
+        // 获取String类中的value字段
+        Field valueFieldOfString = String.class.getDeclaredField("value");
+        // 改变value属性的访问权限
+        valueFieldOfString.setAccessible(true);
+        // 获取s对象上的value属性的值
+        char[] value = (char[]) valueFieldOfString.get(s);
+        // 改变value所引用的数组中的第5个字符
+        value[5] = '_';
+        System.out.println("s = " + s);  //Hello_World
+    }
+
+
+
+
+
+
 
