@@ -41,7 +41,7 @@ TCP是面向连接的可靠传输协议，UDP是面向非连接的不可靠传�
     TCP规定，ACK报文段可以携带数据，但是如果不携带数据则不消耗序号。这里客户端表示我已经准备好。
     
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/三次握手.png" width="800px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/http/三次握手.png" width="800px">
 </div>
 
 # 三、TCP四次挥手
@@ -61,7 +61,7 @@ TCP是面向连接的可靠传输协议，UDP是面向非连接的不可靠传�
     可能最后的ACK，被动方没有收到，那么被动方就会重复发送FIN，不立即关闭，可以在收到的时候回复
     
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/四次挥手.png" width="800px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/http/四次挥手.png" width="800px">
 </div>
     
 # 四、为什么需要三次握手  
@@ -98,7 +98,7 @@ RTO如何计算
     
     每次ACK号 = Seq号 + 传递的字节数 + 1
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/TCP数据传输.png" width="600px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/http/TCP数据传输.png" width="600px">
 </div>
     
 # 六、TCP流量控制
@@ -118,7 +118,7 @@ RTO如何计算
     满了，就将窗口设置为0，发送方不在发送数据，但是需要定期发送一个窗口探测数据段，接收方把窗口大小告诉发送方
     
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/滑动窗口.png" width="600px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/http/滑动窗口.png" width="600px">
 </div>
     
 拥塞控制
@@ -133,10 +133,10 @@ RTO如何计算
     
     发送方取拥塞窗口和滑动窗口的最小值，作为发送的上限
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/拥塞避免1.png" width="600px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/http/拥塞避免1.png" width="600px">
 </div>
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/拥塞避免2.png" width="600px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/http/拥塞避免2.png" width="600px">
 </div>
 
 # 七、HTTP和HTTPS的区别
@@ -200,7 +200,7 @@ HTTP耗时 = TCP握手，HTTPS耗时 = TCP握手 + SSL握手
     公钥是公开的，并且可替换，如果有人替换了A的公钥，又用对应的私钥给A发消息，这样就可以冒充
 
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/SSL握手.png" width="600px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/http/SSL握手.png" width="600px">
 </div>
 
 # 九、CA证书

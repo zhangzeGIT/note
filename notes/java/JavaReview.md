@@ -5,16 +5,16 @@
     * [4、垃圾回收算法](#4垃圾回收算法)
     * [5、新生代老年代内存如何回收](#5新生代老年代内存如何回收)
     * [6、垃圾回收器有哪些](#6垃圾回收器有哪些)
-* [二、如何进行SQL优化](#二如何进行SQL优化)
-* [三、BTree&B+Tree](#三BTree&B+Tree)
-* [四、聚集索引VS非聚集索引](#四聚集索引VS非聚集索引)
-* [五、MVCC](#五MVCC)
-* [六、事务性质](#六事务性质)
-* [七、事务隔离级别](#七事务隔离级别)
+    * [7、常用的JDK命令行工具](#7常用的JDK命令行工具)
+    * [8、类加载器分类](#8类加载器分类)
+* [二、多线程](#二多线程)
+* [三、基础知识](#三基础知识)
+    * [1、JVM&JRE&JDK](#1JVM&JRE&JDK)
+    
 
 
 
-# 虚拟机
+# 一、虚拟机
 
 ## 1、内存模型
 
@@ -152,9 +152,81 @@ java堆：线程共享，存放对象实例
 
 CMS：能否多线程请参考图
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/CMS.png" width="600px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/CMS.png" width="650px">
 </div>
 G1
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/G1.jpg" width="600px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/G1.jpg" width="650px">
 </div>
+
+## 7、常用的JDK命令行工具
+
+jps
+    
+    显示系统所有hotspot虚拟机进程
+
+jstat
+    
+    收集虚拟机各方面的运行数据
+
+jinfo
+
+    显示虚拟机配置信息
+    
+jmap
+
+    生成虚拟机的内存转储快照（heapdump文件）
+    
+jhat
+
+    分析heapmap文件，会建立一个http/html服务器
+
+jstack
+
+    显示虚拟机线程快照
+
+JConsole、VisualVM
+
+## 8、类加载器分类
+
+启动类加载器
+    
+    将java_home/lib下的类库加载到内存
+
+扩展类加载器
+
+    将java_home/lib/ext下或被java.ext.dirs系统变量指定的路径的类库加载到内存
+
+应用程序加载器
+
+    用户类路径上所指定的类库
+
+用户自定义加载器
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/类加载器.jpg" width="650px">
+</div>
+
+
+
+# 二、多线程
+
+# 三、基础知识
+
+## 1、JVM&JRE&JDK
+
+JVM：Java Virtual Machine，java虚拟机，加载并运行java程序
+
+JRE：Java Runtime Environmental，java运行时环境，包括JVM和java的常用类库，是java程序运行的最小环境
+
+JDK：Java Development ToolKit，java开发工具包，除了JRE和JVM外，还包含java，javac等一些工具
+
+
+
+
+
+
+
+
+
+
