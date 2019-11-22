@@ -9,7 +9,7 @@
     * [8、类加载器分类](#8类加载器分类)
 * [二、多线程](#二多线程)
 * [三、基础知识](#三基础知识)
-    * [1、JVM|JRE|JDK](#1JVM|JRE|JDK)
+    * [1、JVM,JRE,JDK](#1JVM,JRE,JDK)
     * [2、JVM](#2JVM)
 
 
@@ -213,7 +213,7 @@ JConsole、VisualVM
 
 # 三、基础知识
 
-## 1、JVM|JRE|JDK
+## 1、JVM,JRE,JDK
 
 JVM：Java Virtual Machine，java虚拟机，加载并运行java程序
 
