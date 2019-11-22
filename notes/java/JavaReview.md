@@ -10,7 +10,7 @@
 * [二、多线程](#二多线程)
 * [三、基础知识](#三基础知识)
     * [1、JVM&JRE&JDK](#1JVM&JRE&JDK)
-    
+    * [2、JVM](#2JVM)
 
 
 
@@ -221,6 +221,9 @@ JRE：Java Runtime Environmental，java运行时环境，包括JVM和java的常�
 
 JDK：Java Development ToolKit，java开发工具包，除了JRE和JVM外，还包含java，javac等一些工具
 
+## 2、JVM
+
+DDDDDDDDDDDDDD
 
 
 
