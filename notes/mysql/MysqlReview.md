@@ -3,10 +3,8 @@
 * [三、BTree&B+Tree](#三BTree&B+Tree)
 * [四、聚集索引VS非聚集索引](#四聚集索引VS非聚集索引)
 * [五、MVCC](#五MVCC)
-* [六、TCP流量控制](#六TCP流量控制)
-* [七、HTTP和HTTPS的区别](#七HTTP和HTTPS的区别)
-* [八、SSL握手](#八SSL握手)
-* [九、CA证书](#九CA证书)
+* [六、事务性质](#六事务性质)
+* [七、事务隔离级别](#七事务隔离级别)
 
 
 # 一、MyISAM,InnoDB的区别
@@ -71,6 +69,11 @@ MyISAM，B+树索引的叶子节点并不存储数据，而是存储数据的文
     再根据主键再去聚集索引中查找，这个过程称为回表
 
     MyISAM中，聚集索引和非聚集索引的叶子节点都会存储数据的文件地址
+    
+什么情况不回表
+
+    查询所要求的字段全部命中了索引
+    select age from employee where age < 20;
 
 # 五、MVCC
 
@@ -142,10 +145,25 @@ InnoDB实现策略
     <img src="https://github.com/zhangzeGIT/note/blob/master/assets/mysql/mvcc流程2.png" width="600px">
 </div>    
 
+# 六、事务性质
 
+原子性、一致性、隔离性、持久性
 
+# 七、事务隔离级别
 
+read-uncommitted：读未提交
 
+read-committed：读已提交（解决脏读）
+
+repeatable-read：可重复读（解决脏读，不可重复读），mysql默认
+
+serializable：串行化（解决脏读，不可重复读，幻读）
+
+    脏读：一个事务处理过程中读取另一个事务未提交的数据
+    
+    不可重复读：一个事务范围多次查询返回不同的结果
+    
+    幻读：批量更新所有数据时，另一个事务添加了一条，就会产生以为有一条没有成功
 
 
 
