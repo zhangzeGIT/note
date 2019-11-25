@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e73028a9-9b7d-4b68-b4eb-2b8a09dd5ae7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes/java/JavaReview.md" beforeDir="false" afterPath="$PROJECT_DIR$/notes/java/JavaReview.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -19,7 +18,7 @@
         <entry file="file://$PROJECT_DIR$/notes/mysql/MysqlReview.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="783">
+              <first_editor relative-caret-position="1107">
                 <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
               </first_editor>
               <second_editor />
@@ -31,8 +30,8 @@
         <entry file="file://$PROJECT_DIR$/notes/java/JavaReview.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="133">
-                <caret line="344" column="29" selection-start-line="344" selection-start-column="29" selection-end-line="344" selection-end-column="29" />
+              <first_editor relative-caret-position="322">
+                <caret line="351" column="23" selection-start-line="351" selection-start-column="23" selection-end-line="351" selection-end-column="23" />
               </first_editor>
               <second_editor />
             </state>
@@ -64,8 +63,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="432" />
-    <option name="y" value="444" />
+    <option name="x" value="350" />
+    <option name="y" value="217" />
     <option name="width" value="1138" />
     <option name="height" value="813" />
   </component>
@@ -75,6 +74,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -144,15 +144,14 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.idea/workspace.xml" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574421841451" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CS-Notes" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574423131068" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../invoice" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -196,7 +195,8 @@
       <workItem from="1574216459310" duration="2691000" />
       <workItem from="1574229856062" duration="4829000" />
       <workItem from="1574243763557" duration="20178000" />
-      <workItem from="1574388293251" duration="18709000" />
+      <workItem from="1574388293251" duration="19127000" />
+      <workItem from="1574647181122" duration="1156000" />
     </task>
     <task id="LOCAL-00001" summary="初版测试">
       <created>1573798847714</created>
@@ -244,13 +244,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69376000" />
+    <option name="totallyTimeSpent" value="70950000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="432" y="444" width="1138" height="813" extended-state="0" />
+    <frame x="350" y="217" width="1138" height="813" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21150278" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21521336" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -442,7 +442,7 @@
     <entry file="file://$PROJECT_DIR$/notes/mysql/MysqlReview.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="783">
+          <first_editor relative-caret-position="1107">
             <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
           </first_editor>
           <second_editor />
@@ -452,8 +452,8 @@
     <entry file="file://$PROJECT_DIR$/notes/java/JavaReview.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="133">
-            <caret line="344" column="29" selection-start-line="344" selection-start-column="29" selection-end-line="344" selection-end-column="29" />
+          <first_editor relative-caret-position="322">
+            <caret line="351" column="23" selection-start-line="351" selection-start-column="23" selection-end-line="351" selection-end-column="23" />
           </first_editor>
           <second_editor />
         </state>
