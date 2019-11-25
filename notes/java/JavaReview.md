@@ -8,6 +8,7 @@
     * [7、常用的JDK命令行工具](#7常用的JDK命令行工具)
     * [8、类加载器分类](#8类加载器分类)
 * [二、多线程](#二多线程)
+    * [1、ThreadLocal](#ThreadLocal)
 * [三、基础知识](#三基础知识)
     * [1、JVM-JRE-JDK](#1JVM-JRE-JDK)
     * [2、接口与抽象类](#2接口与抽象类)
@@ -21,6 +22,11 @@
     * [10、String为什么设计成不可变](#10String为什么设计成不可变)
     * [11、String通过什么方式保证不可变](#11String通过什么方式保证不可变)
     * [12、String一定不可变吗](#12String一定不可变吗)
+    * [13、finally](#13finally)
+    * [14、异常](#14异常)
+    * [15、静态变量与非静态变量](#15静态变量与非静态变量)
+    * [16、Object九大方法](#16Object九大方法)
+    * [17、Java精度问题](#17Java精度问题)
 
 
 
@@ -160,6 +166,16 @@ java堆：线程共享，存放对象实例
               JVM将变化记录在了Remembered Set Logs里，合并到set中即可（快，stop the world）
     筛选回收：对各个region回收价值和成本排序，根据用户期望的GC停顿时间来制定回收计划
 
+    -XX:G1HeapRegionSize=n可指定分区大小（1到32MB，必须是2的幂），默认将整个堆划分为2048个分区
+    每个region又被分成若干大小为512Byte的Card，每次对内存的回收就是对指定分区的卡片进行处理，对象分配以Card为单位
+    
+    分代：逻辑上划分为年轻代和老年代，但年轻代不是固定不变的，当年轻代满了，JVM会分配新的空闲分区加入到年轻代
+    年轻代会在-XX:G1NewSizePercent(默认为堆5%)与最大空间-XX:G1MaxNewSizePercent(默认60%)之间动态变化
+    且由参数目标暂停时间-XX:MaxGCPauseMillis(默认200ms)，需要扩缩容大小以及分区的RSet计算得到
+    G1依然可以设置固定年轻代大小（-XX:NewRatio），但同时暂停目标将失去意义
+    
+    https://blog.csdn.net/coderlius/article/details/79272773
+
 CMS：能否多线程请参考图
 <div align="center">
     <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/CMS.png" width="650px">
@@ -220,6 +236,13 @@ JConsole、VisualVM
 
 
 # 二、多线程
+
+## 1、ThreadLocal
+每个线程Thread内部都有一个ThreadLocal.ThreadLocalMap类型的成员threadLocals
+    
+    Thread类里：ThreadLocal.ThreadLocalMap threadLocals = null;
+    每个线程自己维护
+这个map的key就是Thread.currentThread，value就是变量副本
 
 # 三、基础知识
 
@@ -353,8 +376,76 @@ String Pool，可在初始化时直接计算出hash值
         System.out.println("s = " + s);  //Hello_World
     }
 
+## 13、finally
 
+在return之前执行，finally的return会覆盖其他地点的return
 
+两种情况不会执行finally
+
+    发生异常
+    System.exit(0)
+
+## 14、异常
+
+### Throwable
+所有异常的父类
+
+### Error(错误)
+JVM在运行过程中出现严重的错误，错误不可恢复，如OutOfMemoryError,ThreadDead
+
+### Exception(异常)
+#### 检测异常：IO异常，SQL异常
+#### 运行时异常：空指针，类型转换，数组越界，缓冲区溢出
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/异常.png" width="650px">
+</div>
+
+## 15、静态变量与非静态变量
+
+### 静态变量
+内存中只有一个，虚拟机在加载类的过程中为静态变量分配内存，位于方法区，所有实例共享
+
+### 非静态变量
+每创建一个实例，虚拟机就会为变量分配一次内存，变量位于堆中，生命周期取决于实例生命周期
+
+## 16、Object九大方法
+
+clone
+await
+notify
+notifyAll
+getClass
+toString
+equals
+hashCode
+finalize
+
+## 17、Java精度问题
+### 小数转二进制
+    
+小数乘以2，去整数部分作为二进制表示的第一位，再用小数部分乘以2……
+依次类推，可能造成死循环
+    
+    下面我们具体计算一下0.6的小数表示过程
+    0.6 * 2 = 1.2 ——————- 1 
+    0.2 * 2 = 0.4 ——————- 0 
+    0.4 * 2 = 0.8 ——————- 0 
+    0.8 * 2 = 1.6 ——————- 1 
+    0.6 * 2 = 1.2 ——————- 1 
+    ……
+
+### 二进制转换为整数
+二进制，从左到右，V[i] * 2^(-i)，i为从左到右的index
+
+    我们再拿0.6的二进制表示举例：1001 1001 1001 1001 
+    0.6 = 1 * 2^-1 + 0 * 2^-2 + 0 * 2^-3 + 1 * 2^-4 + ……
+
+### 例子
+
+    以下都是false
+    System.out.println(0.05+0.01 == 0.06);
+    System.out.println(0.060000000000000005 == 0.06);
 
 
 
