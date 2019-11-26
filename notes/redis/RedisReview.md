@@ -9,6 +9,7 @@
 * [九、redis和Memcached的区别](#九redis和Memcached的区别)
 * [十、redis的应用场景](#十redis的应用场景)
 * [十一、redis主从与集群](#十一redis主从与集群)
+* [十二、Redis常见性能问题和解决方案](#十二Redis常见性能问题和解决方案)
 
 
 # 一、基本数据类型
@@ -110,6 +111,7 @@ redis4.0开始支持RDB和AOF的混合持久化，AOF重写直接把RDB的内容
 
 创建完新的AOF，服务器会将重写缓冲区中的所有内容追加到新AOF文件末尾，用新的替换旧的AOF
 
+默认触发是当AOF文件大小是上次重写后大小的一倍且文件大于64M时触发
 
 # 五、redis事务
 
@@ -181,7 +183,7 @@ Redis支持数据的持久化
     ②主接收命令，会开始在后台保存快照（RDB持久过程），并将期间快照命令缓存起来
     ③快照完成之后，主将快照和命令发送给从
     ④从载入快照并执行收到的缓存命令
-    ⑤之后，redis每当接收到写命令，就会发送给redis
+    ⑤之后，主redis每当接收到写命令，就会发送给从redis(异步)
     
 #### 宕机    
 从宕机重启，增量复制，不是全量
@@ -196,7 +198,7 @@ Redis支持数据的持久化
 独立进程
 监控主从是否正常运行
 主故障自动将从转为主
-多个哨兵，互相监控
+多个哨兵，互相监控，通过raft选举领导者，进行故障转移
 哨兵启动无需配置slave，只需要指定master即可，自动发现slave
 
 <div align="center">
@@ -237,4 +239,17 @@ https://blog.csdn.net/xxssyyyyssxx/article/details/72831909
     <img src="https://github.com/zhangzeGIT/note/blob/master/assets/redis/集群.png" width="650px">
 </div>
     
+# 十二、Redis常见性能问题和解决方案
+
+#### master最好不要做任何持久化工作，如RDB、AOF
+#### 数据比较重要，某个slave开启AOF备份，策略设置每秒一次
+#### master，slave最好在一个局域网
+#### 主从复制不要图装结构，单项链表更稳定
+
+
+
+
+
+
+
 

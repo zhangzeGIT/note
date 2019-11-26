@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e73028a9-9b7d-4b68-b4eb-2b8a09dd5ae7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/java/异常.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/redis/缓存雪崩.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/structure/布隆过滤器1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/structure/布隆过滤器2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/structure/布隆过滤器3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notes/dataStructure/StructureReview.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notes/spring/SpringReview.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tjest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/spring/spring组件.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes/java/JavaReview.md" beforeDir="false" afterPath="$PROJECT_DIR$/notes/java/JavaReview.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notes/redis/RedisReview.md" beforeDir="false" afterPath="$PROJECT_DIR$/notes/redis/RedisReview.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notes/spring/SpringReview.md" beforeDir="false" afterPath="$PROJECT_DIR$/notes/spring/SpringReview.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -29,7 +21,7 @@
         <entry file="file://$PROJECT_DIR$/notes/mysql/MysqlReview.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="702">
+              <first_editor relative-caret-position="1107">
                 <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
               </first_editor>
               <second_editor />
@@ -37,12 +29,24 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/notes/redis/RedisReview.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="541">
-                <caret line="215" column="4" selection-start-line="215" selection-start-column="4" selection-end-line="215" selection-end-column="4" />
+              <first_editor relative-caret-position="131">
+                <caret line="203" selection-start-line="203" selection-end-line="205" selection-end-column="6" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/notes/spring/SpringReview.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="189">
+                <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
               </first_editor>
               <second_editor />
             </state>
@@ -68,14 +72,15 @@
         <option value="$PROJECT_DIR$/src/main/java/tjest.java" />
         <option value="$PROJECT_DIR$/notes/dataStructure/StructureReview.md" />
         <option value="$PROJECT_DIR$/notes/redis/RedisReview.md" />
+        <option value="$PROJECT_DIR$/notes/spring/SpringReview.md" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="890" />
-    <option name="y" value="146" />
-    <option name="width" value="962" />
-    <option name="height" value="779" />
+    <option name="x" value="728" />
+    <option name="y" value="516" />
+    <option name="width" value="1321" />
+    <option name="height" value="856" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -105,6 +110,12 @@
               <item name="note" type="b2602c69:ProjectViewProjectNode" />
               <item name="note" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="note" type="b2602c69:ProjectViewProjectNode" />
+              <item name="note" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="spring" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="note" type="b2602c69:ProjectViewProjectNode" />
@@ -144,6 +155,12 @@
             <path>
               <item name="note" type="b2602c69:ProjectViewProjectNode" />
               <item name="note" type="462c0819:PsiDirectoryNode" />
+              <item name="notes" type="462c0819:PsiDirectoryNode" />
+              <item name="spring" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="note" type="b2602c69:ProjectViewProjectNode" />
+              <item name="note" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -167,12 +184,16 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574682670598" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1574760463193" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\IntelliJ IDEA\workspace\note\assets\structure" />
+      <recent name="D:\IntelliJ IDEA\workspace\note\assets\spring" />
       <recent name="D:\IntelliJ IDEA\workspace\note\assets\redis" />
+      <recent name="D:\IntelliJ IDEA\workspace\note\assets\structure" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -219,7 +240,8 @@
       <workItem from="1574229856062" duration="4829000" />
       <workItem from="1574243763557" duration="20178000" />
       <workItem from="1574388293251" duration="19127000" />
-      <workItem from="1574647181122" duration="14565000" />
+      <workItem from="1574647181122" duration="14767000" />
+      <workItem from="1574733305579" duration="14026000" />
     </task>
     <task id="LOCAL-00001" summary="初版测试">
       <created>1573798847714</created>
@@ -266,13 +288,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13331000" />
+    <option name="totallyTimeSpent" value="27559000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="890" y="146" width="962" height="779" extended-state="0" />
+    <frame x="728" y="516" width="1321" height="856" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.21507761" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15622522" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -283,11 +305,11 @@
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32941177" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32941177" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.39942113" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.3993808" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.16176471" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.24204703" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Statistic" order="11" />
@@ -304,39 +326,9 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
     </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21507761" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="0" weight="0.32941177" />
-      <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.32941177" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.32941177" />
-      <window_info anchor="bottom" id="Debug" order="4" visible="true" weight="0.39942113" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.16176471" />
-      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Statistic" order="11" />
-      <window_info anchor="bottom" id="Gerrit" order="12" />
-      <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Version Control" order="14" weight="0.4679666" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Database" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -428,7 +420,7 @@
     <entry file="file://$PROJECT_DIR$/notes/mysql/MysqlReview.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="702">
+          <first_editor relative-caret-position="1107">
             <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
           </first_editor>
           <second_editor />
@@ -438,8 +430,18 @@
     <entry file="file://$PROJECT_DIR$/notes/redis/RedisReview.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="541">
-            <caret line="215" column="4" selection-start-line="215" selection-start-column="4" selection-end-line="215" selection-end-column="4" />
+          <first_editor relative-caret-position="131">
+            <caret line="203" selection-start-line="203" selection-end-line="205" selection-end-column="6" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/notes/spring/SpringReview.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="189">
+            <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
           </first_editor>
           <second_editor />
         </state>
