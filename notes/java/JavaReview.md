@@ -8,7 +8,8 @@
     * [7、常用的JDK命令行工具](#7常用的JDK命令行工具)
     * [8、类加载器分类](#8类加载器分类)
 * [二、多线程](#二多线程)
-    * [1、ThreadLocal](#ThreadLocal)
+    * [1、ThreadLocal](#1ThreadLocal)
+    * [2、线程状态](#2线程状态)
 * [三、基础知识](#三基础知识)
     * [1、JVM-JRE-JDK](#1JVM-JRE-JDK)
     * [2、接口与抽象类](#2接口与抽象类)
@@ -243,6 +244,24 @@ JConsole、VisualVM
     Thread类里：ThreadLocal.ThreadLocalMap threadLocals = null;
     每个线程自己维护
 这个map的key就是Thread.currentThread，value就是变量副本
+
+## 2、线程状态
+### new
+初始状态，线程被构建
+### runnable
+运行状态（对应操作系统的就绪和运行两种状态）
+### blocked
+阻塞状态
+### waiting
+等待状态
+### time_waiting
+超时等待状态，可以指定时间自行返回
+### terminated
+终止状态，表示已经执行完
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/多线程.png" width="650px">
+</div>
 
 # 三、基础知识
 
