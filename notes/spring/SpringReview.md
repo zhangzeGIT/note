@@ -3,18 +3,19 @@
 * [三、IoC与依赖注入](#三IoC与依赖注入)
 * [四、BeanFactory和ApplicationContext有什么区别](#四BeanFactory和ApplicationContext有什么区别)
 * [五、spring有几种配置方式](#五spring有几种配置方式)
-* [六、spring bean的生命周期](#六spring bean的生命周期)
-* [七、spring bean的作用域](#七spring bean的作用域)
-* [八、spring inner beans](#八spring inner beans)
+* [六、spring-bean的生命周期](#六spring-bean的生命周期)
+* [七、spring-bean的作用域](#七spring-bean的作用域)
+* [八、spring-inner-beans](#八spring-inner-beans)
 * [九、spring单例beans是线程安全的吗](#九spring单例beans是线程安全的吗)
-* [十、spring注入java collection](#十spring注入java collection)
+* [十、spring注入java-collection](#十spring注入java-collection)
 * [十一、spring五种自动装配](#十一spring五种自动装配)
 * [十二、spring常见注解](#十二spring常见注解)
 * [十三、设值注入和构造注入](#十三设值注入和构造注入)
 * [十四、Spring框架中有哪些不同类型的事件](#十四Spring框架中有哪些不同类型的事件)
 * [十五、FileSystemResource和ClassPathResource有何区别](#十五FileSystemResource和ClassPathResource有何区别)
 * [十六、spring框架中用到了哪些设计模式](#十六spring框架中用到了哪些设计模式)
-* [十七、spring boot有哪些优点](#十七spring boot有哪些优点)
+* [十七、spring-boot有哪些优点](#十七spring-boot有哪些优点)
+* [十八、spring-boot监视器](#十八spring-boot监视器)
 
 
 # 一、spring包含哪些模块
@@ -87,7 +88,7 @@ AOP(例如页面的权限控制)
 ### 隐式的bean扫描，基于java注解配置，自动注入
     @Component等
 
-# 六、spring bean的生命周期
+# 六、spring-bean的生命周期
 
 ### 实例化Instantiation
 
@@ -97,7 +98,7 @@ AOP(例如页面的权限控制)
 
 ### 销毁Destruction
 
-# 七、spring bean的作用域
+# 七、spring-bean的作用域
 
 #### singleton
 全局只有一个
@@ -114,7 +115,7 @@ AOP(例如页面的权限控制)
 #### globalSession
 与session类似，只是使用portlet的时候使用
 
-# 八、spring inner beans
+# 八、spring-inner-beans
 bean被使用，当仅被调用了一个属性，一个明智的做法是将这个bean声明为内部bean
 内部bean可以用setter注入属性和构造方法注入构造参数实现
 
@@ -139,14 +140,14 @@ spring 框架并没有对单例bean做任何多线程的封装处理
 但实际上，大部分的bean并没有可变的状态（service，dao类）
 需要开发者自行处理多线程问题，最浅显的解决办法就是将多态bean的作用域由singleton变为prototype
 
-# 十、spring注入java collection
+# 十、spring注入java-collection
 
 spring提供四种集合类的配置元素
 
 <list>,<set>,<map>,<props>
 
 # 十一、spring五种自动装配
-###开启
+### 开启
 <context:component-scan>
 
 ### 类型
@@ -174,6 +175,10 @@ spring提供四种集合类的配置元素
 
 #### @Qualifier
 当spring上下文中，一样的类型存在不止一个bean，我们可以使用此注解配合@Autowired来解决问题
+
+#### @ControllerAdvice
+spring boot的统一异常处理
+容器级别异常需要继承BasicErrorController(Filter抛出的异常，没有匹配的URL，请求参数错误等)
 
 # 十三、设值注入和构造注入
 
@@ -221,6 +226,27 @@ spring会在ClassPath中自动搜寻配置文件，所以要把ClassPathResource
 工厂模式-BeanFactory用来创建对象的实例
 
 
+# 十七、spring-boot有哪些优点
 
+良好的基因，基于spring 4.0
 
+简化编码，简化配置（spring被誉为配置地狱）
 
+简化部署，内嵌Tomcat
+
+上手简单
+
+spring-boot-devtools支持修改代码热部署，发现有class文件变动，就会创建一个新的ClassLoader进行加载
+
+# 十八、spring-boot监视器
+
+actuator 是spring启动框架的重要功能之一，帮助访问生产环境正在运行的应用程序的当前状态
+
+有几个指标必须在生产环境中进行检查和监控，公开了一组可以直接作为HTTP URL访问的REST端点来检查状态
+
+#### 端点
+actuator监控项称为端点，默认除了shutdown之外，所有端点都启动
+
+    配置默认关闭并开启指定的info端点
+    management.endpoints.enabled-by-default=false
+    management.endpoint.info.enabled=true
