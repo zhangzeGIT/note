@@ -16,6 +16,8 @@
 * [十六、spring框架中用到了哪些设计模式](#十六spring框架中用到了哪些设计模式)
 * [十七、spring-boot有哪些优点](#十七spring-boot有哪些优点)
 * [十八、spring-boot监视器](#十八spring-boot监视器)
+* [十九、spring-boot常用的starter有哪些](#十九spring-boot常用的starter有哪些)
+* [二十、spring-boot-starter加载过程](#二十spring-boot-starter加载过程)
 
 
 # 一、spring包含哪些模块
@@ -178,6 +180,13 @@ spring提供四种集合类的配置元素
 
 #### @ControllerAdvice
 spring boot的统一异常处理
+
+#### @ConfigurationProperties
+把yml或者properties配置文件转化为bean
+
+#### @EnableConfigurationProperties
+使@ConfigurationProperties生效
+
 容器级别异常需要继承BasicErrorController(Filter抛出的异常，没有匹配的URL，请求参数错误等)
 
 # 十三、设值注入和构造注入
@@ -250,3 +259,98 @@ actuator监控项称为端点，默认除了shutdown之外，所有端点都启�
     配置默认关闭并开启指定的info端点
     management.endpoints.enabled-by-default=false
     management.endpoint.info.enabled=true
+
+# 十九、spring-boot常用的starter有哪些
+
+spring-boot-starter-web：嵌入Tomcat和web开发需要servlet与jsp支持
+
+spring-boot-starter-data-jpa：数据库支持
+
+spring-boot-starter-data-redis：redis数据库支持
+
+spring-boot-starter-data-solr：solr支持
+
+mybatis-spring-boot-starter：mybatis集成starter
+
+# 二十、spring-boot-starter加载过程
+
+### starter中的配置（mybatis为例）
+每个start的META-INF下都有一个spring.factories文件
+    
+    内容如下
+    # Auto Configure
+    org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration
+
+MybatisAutoConfiguration是一个带@Configuration和@Bean的类，就是一个java代码的配置类
+@Conditional*是依赖条件
+@EnableConfigurationProperties是配置参数
+
+    @Configuration
+    @ConditionalOnClass({SqlSessionFactory.class, SqlSessionFactoryBean.class})
+    @ConditionalOnBean({DataSource.class})
+    @EnableConfigurationProperties({MybatisProperties.class})
+    @AutoConfigureAfter({DataSourceAutoConfiguration.class})
+    public class MybatisAutoConfiguration {
+        ……
+        @Bean
+        @ConditionalOnMissingBean
+        public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+            ExecutorType executorType = this.properties.getExecutorType();
+            return executorType != null ? new SqlSessionTemplate(sqlSessionFactory, executorType) : new SqlSessionTemplate(sqlSessionFactory);
+        }
+    }
+
+### Spring Boot
+
+默认扫描启动类所在包下的主类与子类的所有组件，不包括依赖包中的类
+spring启动的时候添加@SpringBootApplication注解
+@SpringBootApplication下包含
+    @Configuration
+    @EnableAutoConfiguration(借助@Import，收集和注册依赖包中相关的bean定义)
+    @ComponentScan(自动扫描并加载符合条件的组件，比如@Component,@Repository等)
+
+@EnableAutoConfiguration下包含
+    @AutoConfigurationPackage(加载启动类所在的所有包下的主类与子类)
+    @Import(EnableAutoConfigurationImportSelector.class)(外部依赖的bean)
+    
+    EnableAutoConfigurationImportSelector
+    通过loadFactoryNames方法扫描所有包META-INF/sping.factories文件，并返回数组
+    
+### 扩展，@Import如何创建类
+
+#### 创建一个bean
+    
+    class User{}
+#### 创建一个ItpscSelector继承ImportSelector接口并实现selectImports方法
+
+    class ItpscSelector implements ImportSelector {
+        public String[] selectImports(AnnotationMetadata importingClassMetadata) {
+            return new String[]{"com.zhangze.User"}; // user类的地址
+        }
+    }   
+#### 创建ImportConfig类，使用@Configuration，@Import(ItpscSelector.class)注解
+
+    @Configuration
+    @Import(ItpscSelector.class)
+    public class ImportConfig {}
+
+#### 从容器中加载bean
+
+    通过前面的步骤，就可以加载bean了
+    
+     ApplicationContext ctx = new AnnotationConfigApplicationContext(ImportConfig.class);
+     String[] beanDefinitionNames = ctx.getBeanDefinitionNames();
+     for (String name : beanDefinitionNames) {
+          System.out.println(name);
+     }
+     
+     运行结果
+     org.springframework.context.annotation.internalConfigurationAnnotationProcessor
+     org.springframework.context.annotation.internalAutowiredAnnotationProcessor
+     org.springframework.context.annotation.internalRequiredAnnotationProcessor
+     org.springframework.context.annotation.internalCommonAnnotationProcessor
+     org.springframework.context.event.internalEventListenerProcessor
+     org.springframework.context.event.internalEventListenerFactory
+     importConfig
+     com.itpsc.entity.User

@@ -29,7 +29,7 @@
     * [16、Object九大方法](#16Object九大方法)
     * [17、Java精度问题](#17Java精度问题)
     * [18、Stream](#18Stream)
-
+    * [19、ParallelStream](#19ParallelStream)
 
 # 一、虚拟机
 
@@ -466,7 +466,7 @@ finalize
     System.out.println(0.05+0.01 == 0.06);
     System.out.println(0.060000000000000005 == 0.06);
 
-## 18、Java精度问题
+## 18、Stream
 
 #### 特性
 stream不存储数据
@@ -482,6 +482,39 @@ stream延迟执行
 中间操作只是一种标识，只有结束操作才会触发实际计算
 无状态的中间操作不受前面元素影响，有状态中间操作必须等所有元素都处理之后才知道最终结果
 短路操作指不用处理全部元素就可以返回结果
-每个
+每个操作是一个stage，每个stage实现Sink接口
+每个stage记录前一个stage和本次操作以及回调函数，构成流水线（双向链表）
+Sink完美封装了Stream的每一步操作，并给出[处理->转发]模型
 
-https://blog.csdn.net/lcgoing/article/details/87918010
+    Sink接口
+        void begin      开始遍历元素前调用该方法，通知Sink做好准备
+        void end        所有元素遍历完之后调用
+        boolean cancellationRequested   是否可以结束操作，可以让短路操作尽快结束
+        void accept     遍历元素时调用
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/stream操作.png" width="650px">
+</div>
+
+## 19、ParallelStream
+
+并行流处理，底层使用Fork/Join框架实现
+
+-Djava.util.concurrent.ForkJoinPool.common.parallelism=N 设置worker数量，默认为CPU核心数
+
+缺点：
+    
+    线程非安全
+    整个程序周期，只使用指定的worker数量，如果某个生产者生产了许多重量级任务，那么其他任务将没有工作线程可用
+    
+
+
+
+
+
+
+
+
+
+
+
