@@ -202,41 +202,44 @@ job.setGroupingComparatorClass设置分组函数
 
 # 十、Hadoop提交任务过程
 ### 涉及的节点
+
 本地提交任务客户端
+
 ResourceManage
+
 NodeManage
 
-##### 客户端向ResourceManage申请提交一个application
+#### 客户端向ResourceManage申请提交一个application
 客户端通过yarnrunner，yarnrunner保存了与ResourceManager之间的链接
 
-##### ResourceManager返回Application资源路径(hdfs://xxx../staging)及Application.id
+#### ResourceManager返回Application资源路径(hdfs://xxx../staging)及Application.id
 
-##### 客户端提交所需资源文件到资源路径下
+#### 客户端提交所需资源文件到资源路径下
 
     hdfs://xxx../staging/application.id/job.split
     hdfs://xxx../staging/application.id/job.xml
     hdfs://xxx../staging/application.id/wordcount.jar
     这些文件都是job.submit()生成的
 
-##### 客户端通知ResourceManager提交完毕，申请运行mrAppMaster
+#### 客户端通知ResourceManager提交完毕，申请运行mrAppMaster
 
-##### ResourceManager收到请求，将客户端请求封装成task，放入FIFO队列
+#### ResourceManager收到请求，将客户端请求封装成task，放入FIFO队列
 
-##### NodeManager领取任务，创建容器(Container)，下载job资源到本地，运行mrAppMaster
+#### NodeManager领取任务，创建容器(Container)，下载job资源到本地，运行mrAppMaster
 
     mrAppMaster是整个任务的主管
     
-##### mrAppMaster向ResourceManager申请运行mapTask的容器
+#### mrAppMaster向ResourceManager申请运行mapTask的容器
 
     会发送jar包到指定容器（默认名字YarnChild）
     如果有一个MapTask运行失败或者特别慢，会新申请一个容器运行
     
-##### MapTask运行完，mrAppMaster向ResourceManager申请运行ReduceTask的容器
+#### MapTask运行完，mrAppMaster向ResourceManager申请运行ReduceTask的容器
 
     默认名字也是YarnChild
-##### ReduceTask向MapTask获取响应分区的数据，并运行
+#### ReduceTask向MapTask获取响应分区的数据，并运行
 
-##### 运行完，所有容器会向ResourceManager申请注销自己
+#### 运行完，所有容器会向ResourceManager申请注销自己
 
 <div align="center">
     <img src="https://github.com/zhangzeGIT/note/blob/master/assets/hadoop/hadoop提交任务.png" width="800px">
