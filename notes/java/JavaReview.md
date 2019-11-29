@@ -12,6 +12,9 @@
 * [二、多线程](#二多线程)
     * [1、ThreadLocal](#1ThreadLocal)
     * [2、线程状态](#2线程状态)
+    
+    * [4、线程池默认拒绝策略](#4线程池默认拒绝策略)
+    * [5、为什么不推荐使用Executors](#5为什么不推荐使用Executors)
 * [三、基础知识](#三基础知识)
     * [1、JVM-JRE-JDK](#1JVM-JRE-JDK)
     * [2、接口与抽象类](#2接口与抽象类)
@@ -288,6 +291,34 @@ JConsole、VisualVM
 <div align="center">
     <img src="https://github.com/zhangzeGIT/note/blob/master/assets/java/多线程.png" width="650px">
 </div>
+
+## 4、线程池默认拒绝策略
+
+##### AbortPolicy
+直接抛异常，默认策略
+
+##### CallerRunsPolicy
+用调用者线程来运行
+
+##### DiscardOldPolicy
+丢弃队列中最早的一个任务，再尝试添加
+
+##### DiscardPolicy
+不处理，丢弃掉
+
+## 5、为什么不推荐使用Executors
+
+##### OutOfMemoryException
+newFixedThreadPool和newSingleThreadExecutor底层队列是LinkedBlockingQueue，长度Integer.MAX_VALUE，可以认为无限长
+
+newCachedThreadPool，maximumPoolSize为Integer.MAX_VALUE，可以认为无限大，导致内存溢出
+队列用的是SynchronousQueue，默认不存任何元素
+
+newScheduledThreadPoll与newCachedThreadPool一样问题
+
+##### 不能自己实现拒绝策略
+
+##### 创建线程时，不能指定有意义的名字
 
 # 三、基础知识
 
