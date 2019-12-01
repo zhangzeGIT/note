@@ -5,6 +5,7 @@
 * [五、MVCC](#五MVCC)
 * [六、事务性质](#六事务性质)
 * [七、事务隔离级别](#七事务隔离级别)
+* [八、MySQL建议存储数据量](#八MySQL建议存储数据量)
 
 
 # 一、MyISAM,InnoDB的区别
@@ -13,7 +14,7 @@ MyISAM：不支持事务，查询、插入为主的数据，不支持外键，�
 
     更新一个字段，就会锁整表，所以不适合大量写操作的常见
 
-InnoDB：支持事务，外键，锁力度支持MVCC，不支持全文索引，不保存行数，清空表时，一行行删除，支持表锁、行锁
+InnoDB：支持事务，外键，锁力度支持MVCC，5.6之后支持全文索引，不保存行数，清空表时，一行行删除，支持表锁、行锁
 
 
 # 二、如何进行SQL优化
@@ -36,7 +37,11 @@ InnoDB：支持事务，外键，锁力度支持MVCC，不支持全文索引，�
 
     固定长度，mysql可以轻松的计算下一个数据的偏移量，副作用就是定长浪费空间
 
+在索引中完成排序
 
+小结果集驱动大结果集(查询结果)
+
+仅仅使用最有效的过滤条件
 # 三、BTree&B+Tree
 
 B+树非叶子节点不存储数据(B数存储)，仅存储键值，这样会存储更多的键值，减少IO
@@ -48,10 +53,10 @@ MyISAM，B+树索引的叶子节点并不存储数据，而是存储数据的文
 通过图可以看出，数据页之间通过双向链表以及叶子节点数据通过单向链表找到所有数据
 
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/mysql/BTree.png" width="600px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/mysql/BTree.png" width="800px">
 </div>
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/mysql/BPlusTree.png" width="600px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/mysql/BPlusTree.png" width="800px">
 </div>
 
 # 四、聚集索引VS非聚集索引
@@ -82,6 +87,8 @@ Multi-Version Concurrency Control:多版本并发控制
 类比java，就是一个乐观锁的实现，解决“读-写”冲突的无锁并发控制
 
 并发读写数据库时，读写互不阻塞，同时解决了脏读，幻读，不可重复读，但不能解决更新丢失问题
+
+即使读写冲突，也能不加锁，非阻塞并发读
 
 所以结合MVCC
 
@@ -165,9 +172,11 @@ serializable：串行化（解决脏读，不可重复读，幻读）
     
     幻读：批量更新所有数据时，另一个事务添加了一条，就会产生以为有一条没有成功
 
+# 八、MySQL建议存储数据量
 
+size of row >= 100字节  建议存储一千万
 
-
+size of row <= 100字节  建议存储五千万
 
 
 
