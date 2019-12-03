@@ -36,7 +36,8 @@
     * [18、Stream](#18Stream)
     * [19、ParallelStream](#19ParallelStream)
     * [20、数据库查询为什么推荐使用Integer](#20数据库查询为什么推荐使用Integer)
-
+    * [21、动态代理](#21动态代理)
+    
 # 一、虚拟机
 
 ## 1、内存模型
@@ -572,8 +573,13 @@ int有默认值0，如果没查出来，Integer会是null，而int会是0，这�
 
 Integer有很多封装的函数可以调用，同时Java集合只支持包装类型而不支持基本数据类型
 
+## 21、动态代理
 
+### JDK动态代理
 
+### cglib动态代理
+
+参考：https://www.cnblogs.com/socketqiang/p/11212029.html
 
 
 

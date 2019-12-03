@@ -10,6 +10,7 @@
 * [十、redis的应用场景](#十redis的应用场景)
 * [十一、redis主从与集群](#十一redis主从与集群)
 * [十二、Redis常见性能问题和解决方案](#十二Redis常见性能问题和解决方案)
+* [十三、Redis数据结构](#十三Redis数据结构)
 
 
 # 一、基本数据类型
@@ -242,9 +243,152 @@ https://blog.csdn.net/xxssyyyyssxx/article/details/72831909
 # 十二、Redis常见性能问题和解决方案
 
 #### master最好不要做任何持久化工作，如RDB、AOF
+
 #### 数据比较重要，某个slave开启AOF备份，策略设置每秒一次
+
 #### master，slave最好在一个局域网
+
 #### 主从复制不要图装结构，单项链表更稳定
+
+
+# 十三、Redis数据结构
+
+### 动态字符串SDS
+所有键，都是字符串类型，底层都是SDS
+所有值，都是以字符串为粒度的，底层也是SDS
+
+free：未使用空间
+len：目前保存的字符串的实际长度
+结尾：'\0'
+buf：char类型数组
+
+优势：
+    
+    直接能够获取长度，无需遍历
+    修改不会发生缓冲区溢出，API会先检查SDS空间是否满足，不满足会先扩展空间
+
+优化策略：
+    
+    预分配：len < 1MB，free = len，所以数组实际长度free + len + 1byte
+            len > 1MB，free = 1MB，实际长度len + 1MB + 1byte
+    惰性空间释放：API对SDS缩短时，不会立即回收内存，只会增加free的长度
+            SDS有相应释放内存的API，所以无需担心内存的浪费
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/redis/SDS.png" width="550px">
+</div>
+
+### 链表
+列表的底层实现之一
+
+Redis自己实现的双向链表
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/redis/链表.png" width="550px">
+</div>
+
+### 字典
+Redis自己实现的字典结构，实现方式类似java的HashMap
+
+Hash结构的底层实现之一，头插法
+
+rehash条件
+
+    负载因子：hash表中已保存的节点数量/哈希表数组大小
+    扩容：正在执行BGSAVE/BGREWRITEAOP时，负载因子大于等于5扩容
+          没有执行BGSAVE/BGREWRITEAOP时，负载因子大于等于1扩容
+    收缩：负载因子小于0.1
+    
+渐进式rehash
+
+    ①为ht[1]分配空间，并将rehashindex置为1，表示rehash开始
+    ②rehash期间，新增操作在ht[1]上进行，同时将ht[0]hash表在rehashindex索引上的所有键值对rehash到ht[1]上
+    ③ht[0]所有元素都复制到ht[1]，将rehashindex置为-1，表示完成
+    
+    更新，删除，查找会在ht[0]和ht[1]上进行，新增只会在ht[1]上进行
+   
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/redis/字典.png" width="550px">
+</div>
+
+### 跳跃表
+是一种有序数据结构，每个节点维持多个指向其他节点的指针，从而达到快速访问节点的目的
+
+有序集合键的底层实现之一
+
+跳表实际就是可以跳跃的链表，借鉴了二分法的策略
+
+数据结构：
+
+    /* 跳表节点 */
+    typedef struct zskiplistNode {
+        robj *obj;  /* 数据 */
+        double score; /* 分数 */
+        struct zskiplistNode *backward; //前一个节点指针
+        struct zskiplistLevel {
+            struct zskiplistNode *forward; //后面某个节点，也就是next指针
+            unsigned int span; //跨度
+        } level[]; /* 跳表中保存了多个指向下一个节点的指针 */
+    } zskiplistNode;
+        
+    /* 跳表 */
+    typedef struct zskiplist {
+        struct zskiplistNode *header, *tail; //表头表尾
+        unsigned long length; /* 跳表中节点个数 */
+        int level; //跳表总层数
+    } zskiplist;
+   
+查找过程：
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/redis/跳表查找.png" width="550px">
+</div>
+
+参考：https://blog.csdn.net/asdfsadfasdfsa/article/details/87934716
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/redis/跳表.png" width="550px">
+</div>
+
+
+### 整数集合
+
+一个集合只包含整数值元素，并且这个集合元素数量不多时，会用这种数据集
+
+底层由数组实现，各个项在数组中按从小到大排序，length属性记录了包含的元素个数
+
+### 压缩列表(ziplist)
+
+zset和hash在对象比较少的时候，采用这种方式存储
+
+可以双向遍历
+
+条件：所有键值长度小于64字节且hash对象保存的键值对数量小于512个时才使用
+
+数据结构：
+    
+    struct ziplist<T> {
+        int32 zlbytes; // 整个压缩列表占用字节数
+        int32 zltail_offset; // 最后一个元素距离压缩列表起始位置的偏移量，用于快速定位到最后一个节点
+        int16 zllength; // 元素个数
+        T[] entries; // 元素内容列表，挨个挨个紧凑存储
+        int8 zlend; // 标志压缩列表的结束，值恒为 0xFF
+    }
+    
+    struct entry {
+        int<var> prevlen; // 前一个 entry 的字节长度
+        int<var> encoding; // 元素类型编码
+        optional byte[] content; // 元素内容
+    }
+    
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/redis/ziplist.jpeg" width="550px">
+</div>
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/redis/Redis数据结构.png" width="650px">
+</div>
+
 
 
 
