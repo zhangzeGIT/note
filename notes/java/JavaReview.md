@@ -37,7 +37,7 @@
     * [19、ParallelStream](#19ParallelStream)
     * [20、数据库查询为什么推荐使用Integer](#20数据库查询为什么推荐使用Integer)
     * [21、动态代理](#21动态代理)
-    
+    * [22、ASM](#22ASM)    
 # 一、虚拟机
 
 ## 1、内存模型
@@ -576,12 +576,92 @@ Integer有很多封装的函数可以调用，同时Java集合只支持包装类
 ## 21、动态代理
 
 ### JDK动态代理
+java内部反射机制实现，生成类比较高效
 
+目标类必须基于统一的接口(底层proxy字节码也会继承Person，并实现方法)
+
+大体流程：为接口创建代理类的字节码文件，使用ClassLoader将字节码文件加载到JVM，创建代理类实例对象
+    
+    // 统一接口    
+    public interface Person{
+        public void buy();
+    }
+    public class zhangze implements Person {
+        @Override
+        public void buy() {
+            sout("张泽");
+        }
+    }
+    
+    public ProxySaler implements InvocationHandler {
+        public Object person;
+        public ProxySaler(Object person) { this.person = person; }
+        // 获取被代理接口实例对象
+        public<T> T getProxy() {
+            return (T) Proxy.newProxyInstance(person.getClass().getClassLoader(), person.getClass().getInterfaces(), this);
+        }
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            sout("befor");
+            Object result = method.invoke(person, args);
+            sout("after");
+            return result;
+        }
+    }
+    // 测试类
+    public class Client {
+        psvm() {
+            // 保存生成的代理类的字节码文件
+            System.getProperties().put("sum.misc.ProxyGenerator.saveGeneratedFiles", "true");
+            // jdk动态代理
+            Person person = new ProxySaler(new Zhangze()).getProxy();
+            person.buy();
+        }
+    }
 ### cglib动态代理
+借助ASM来实现，生成类比较低效(通过将asm生成的类进行缓存解决)，生成类之后的相关执行比较高效
 
-参考：https://www.cnblogs.com/socketqiang/p/11212029.html
+Spring AOP就是借助cglib实现的
 
+    // 被代理的方法
+    public class PlayGame {
+        public void play() { sout("打篮球"); }
+    }
+    // 代理类
+    public class CglibProxy implements MethodInterceptor {
+        public Object newInstall(Object object) {
+            return Enhancer.create(object.getClass(), this);
+        }
+        public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+            sout("热身一会");
+            methodProxy.invokeSuper(o, objects);
+            sout("打完了");
+            return null;
+        }
+    }
+    // 测试类
+    public class ProxyTest {
+        psvm() {
+            CglibProxy cglibProxy = new CglibProxy();
+            PlayGame playGame = (PlayGame) cglibProxy.newInstall(new PlayGame());
+            playGame.play();
+        }
+    }
+    
 
+## 22、ASM
+
+#### 是什么
+通用的Java字节码操控和分析框架，性能相比其他框架更佳
+
+可以通过他修改已有的类，也可以直接生成类
+
+一个方法就是一个帧，帧包含本地变量(数组)和操作栈(一组字节码指令序列)
+
+#### 为什么要用ASM
+Java是静态语言，在很多情况下我们需要在运行时动态生成或者增强一些类
+
+典型的应用场景就是AOP
 
 
 

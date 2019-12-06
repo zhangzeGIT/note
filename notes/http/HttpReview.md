@@ -7,6 +7,7 @@
 * [七、HTTP和HTTPS的区别](#七HTTP和HTTPS的区别)
 * [八、SSL握手](#八SSL握手)
 * [九、CA证书](#九CA证书)
+* [十、HTTP头](#十HTTP头)
 
 # 一、HTTP，TCP，UDP
 
@@ -105,7 +106,7 @@ RTO如何计算
 
 解决问题
     
-    接收端处理速度不如发送端，消除发送方使接收方缓存移除的可能
+    接收端处理速度不如发送端，消除发送方使接收方缓存溢出的可能
     
 滑动窗口协议
 
@@ -220,6 +221,74 @@ CA是Certificate Authority的缩写，CA证书就是CA发的证书
     C读取证书中的明文信息，hash得到信息摘要，然后用CA公钥解密签名数据，对比证书信息摘要，一致则合法
     
     C会内置信任CA证书的信息（包含公钥）
+
+
+# 十、HTTP头
+
+### 通用头General
+
+Request URL：请求的URL
+Request Method ： 请求的方法，可以是GET、POST 
+Status Code：HTTP 状态码，表示请求成功 
+Remote Address：远程IP地址 
+Referrer Policy：当从一个链接跳到另一个链接，另一个链接的referer就记录了是从哪个链接跳来的。Referrer Policy就是管理这个来源信息的机制。 
+                 unsafe-url：无论是同源请求还是非同源请求，都发送完整的 URL（移除参数信息之后）作为引用地址。
+
+### 请求头Request Headers
+
+Accept：浏览器能接收的内容
+Accept-Encoding：浏览器支持的压缩编码类型
+Accept-Language：浏览器支持的语言
+Cookie：HTTP请求发送时，会把保存该请求域名下的所有cookie值一起发送给WEB服务器
+Host：指定请求服务器的域名和端口号
+Referer：先前网页地址，当前请求网页紧随其后，即来路
+User-Agent：发出请求的用户信息
+If-Modified-Since
+Cache-Control
+    
+    no-cache：不缓存，每次去服务器去取
+    max-age：只接受age值小于max-age值，并且没有过期对象
+    max-stale：可以接受过去的对象，但是过期时间必须小于max-stale值
+    min-fresh：接受其新鲜生命期大于其当前age跟min-fresh值之和的缓存对象
+
+### 响应头Response Headers
+
+Content-Encoding：内容压缩类型
+Content-Length：返回的内容的长度
+Content-Type：返回的内容类型
+Connection：
+Date：请求的日期
+Expires：响应过期的时间和日期
+Server：服务器
+Last-Modified
+Cache-Control
+    
+    public：可以用Cached内容回应任何用户
+    private：只能用缓存内容回应先前请求该内容的那个用户
+    no-cache：可以缓存，但是只有在跟web服务器验证了其有效后，才能返回给客户端
+    max-age：本响应包含的对象的过期时间
+    ALL：no-store不允许缓存
+
+### Last-Modified与If-Modified-Since
+客户端访问页面，服务端会将页面最后修改时间通过Last-Modified发往客户端
+
+客户端通过If-Modified-Since将先前服务端发过来的最后修改时间戳发送回去
+
+服务端通过这个时间戳判断客户端页面是否最新
+
+    不是最新：返回最新内容
+    是最新：返回304告诉客户端其本地cache的页面是最新的
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/http/HttpHeader.jpg" width="600px">
+</div>
+
+
+
+
+
+
+
 
 
 
