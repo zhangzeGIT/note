@@ -1,8 +1,13 @@
-* [一、Kafka与MQ](一、Kafka与MQ)
-* [二、Kafka传递语义](二Kafka传递语义)
-* [三、如何保证消息只传递一次](三如何保证消息只传递一次)
-
-
+* [一、Kafka与MQ](#一Kafka与MQ)
+* [二、Kafka传递语义](#二Kafka传递语义)
+* [三、如何保证消息只传递一次](#三如何保证消息只传递一次)
+* [四、Kafka如何保存数据](#四Kafka如何保存数据)
+* [五、Kafka保留策略](#五Kafka保留策略)
+* [六、Partition如何分布在不同的broker上](#六Partition如何分布在不同的broker上)
+* [七、ISR-HW-LEO](#七ISR-HW-LEO)
+* [八、Kafka-Controller](#八Kafka-Controller)
+* [九、Broker-Failover](#九Broker-Failover)
+* [十、为什么需要ISR](#十为什么需要ISR)
 
 
 # 一、Kafka与MQ
@@ -11,6 +16,8 @@
 高吞吐，一般配合大数据类的系统来进行实时数据计算，日志采集等场景
 
 内部采用消息的批量处理，zerocopy机制，数据存储、获取是本地磁盘顺序批量操作
+
+通过pagecache机制，尽可能利用机器上的空闲内存做缓存
 
 单机TPS约百万条/秒(10字节)，producer端将多个小消息合并，批量发送Broker
 
@@ -53,7 +60,7 @@ producer在leader已成功收到数据并接收到ACK时，发送下一条
 ### Exactly once：-1
 每条消息只会被传递一次
 
-多数副本同步成功，broker才会返回成功
+所有副本同步成功，broker才会返回成功
 
 ## consumer端
 
@@ -88,7 +95,160 @@ consumer挂了，导致提交offset失败，导致下次消费还是从以前的
     注：可以通过向KafkaConsumer添加ConsumerRebalanceListener来监听Rebalance
 
 
+# 四、Kafka如何保存数据
+通过log.dirs配置保存的路径，可以是多个
 
+每个partition对应目录下的一个文件夹，名称：Topic名+分区ID
+
+分区在逻辑上对应一个Log，Log由多个segment组成，每个segment对应一个日志文件(xxx.index)，一个索引文件(xxx.log)
+
+索引文件为稀疏索引，运行时加载到内存
+
+日志文件超过一定大小(默认1G)，就会创建新的segment，命名为起始的偏移量
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/kafka/kafka目录结构.png" width="600px">
+</div>
+
+# 五、Kafka保留策略
+
+### 基于时间
+log.retention.hours=168
+
+### 基于大小
+log.retention.bytes=1073741824
+
+### 基于起始位移
+主要解决流处理应用中存在大量的中间消息
+
+### 注
+
+    log.retention.check.interval.ms：设置每次触发定时任务的周期，默认五分钟
+    以上配置可以基于全局的，也可以基于topic的
+
+# 六、Partition如何分布在不同的broker上
+顺序分配，轮训
+
+    int i = 0;
+    list{kafka01,kafka02,kafka03}
+    
+    for (int i = 0; i < 5; i++) {
+        brIndex = i % broker;
+        hostName = list.get(brIndex);
+    }
+
+# 七、ISR-HW-LEO
+### ISR(In-Sync Replica)
+
+定义：
+
+    目前可用且消息量与leader差不多的副本集合
+    每个leader副本维护这个集合
+条件：
+
+    1、副本所在节点必须维持着zk的链接
+    2、副本最后一条消息的offset与leader最后一条消息的offset之间不能超过指定阈值
+    
+### HW(HighWatermark)
+消费者只能拉取HW之前的消息，由leader副本管理
+
+当ISR集合中全部follower副本都拉取HW指定消息进行同步，leader副本递增HW
+
+kafka将HW之前的消息状态称为“commit”
+
+### LEO(Log End Offset)
+追加到当前副本的最后一个消息，所有副本维护
+
+生产者向leader追加消息，leader副本LEO递增
+
+follower从leader副本拉取消息并更新到本地的时候，follower的LEO递增
+
+
+# 八、Kafka-Controller
+
+### 选举：
+
+    broker在ZK中创建/controller临时节点：{"version":1,"brokerid":0,"timestamp":"123"}
+    只有一个节点会竞选成功，每个broker都会保存当前controller的brokerID
+    
+    /controller_epoch记录当前控制器是第几代，初始值为1
+    与controller的交互都会携带这个字段，如果epoch值小于内存中的值，就认为是过期请求
+    
+### 职责
+
+#### 监听partition的变化
+    为Zookeeper中的/admin/reassign_partitions节点注册PartitionReassignmentListener，用来处理分区重分配的动作。
+    为Zookeeper中的/isr_change_notification节点注册IsrChangeNotificetionListener，用来处理ISR集合变更的动作。
+    为Zookeeper中的/admin/preferred-replica-election节点添加PreferredReplicaElectionListener，用来处理优先副本的选举动作。
+    为Zookeeper中的/brokers/topics/[topic]节点添加PartitionModificationsListener，用来监听topic中的分区分配变化。
+#### 监听topic相关的变化
+
+    为Zookeeper中的/brokers/topics节点添加TopicChangeListener，用来处理topic增减的变化；
+    为Zookeeper中的/admin/delete_topics节点添加TopicDeletionListener，用来处理删除topic的动作。
+
+#### 监听broker相关的变化
+
+    为Zookeeper中的/brokers/ids/节点添加BrokerChangeListener，用来处理broker增减的变化。
+#### 管理集群
+
+    启动并管理分区状态机和副本状态机
+    更新集群的元数据信息
+    参数auto.leader.rebalance.enable=true，会开启一个“auto-leader-rebalance-task”的定时任务来负责维护分区的优先副本的均衡
+    
+### 优点
+在没有采用controller来管理分区和副本状态时，所有操作都依赖于ZK
+
+broker会在ZK上注册大量的Watcher，这种设计会有脑裂、羊群效应以及ZK过载等隐患
+
+# 九、Broker-Failover
+
+### 注意：
+
+    新加入broker，kafka什么都不做，只会在之后创建topic的时候用上，也可以手动reassignment
+    非leader replica挂了，也不会新建replica，即坏一个少一个
+    
+    这样会导致一个问题，当有一个broker挂了，这个broker在启动时，就没有leader replica了
+    就会导致负载不均衡。可以通过auto.leader.rebalance.enable: true启动一个scheduler线程(controller启动)
+    定期去为每个broker做rebalance(条件为：imbalance ratio 达到一定比例)
+    
+#### ①controller通过watcher(/brokers/ids/[brokerId])得知broker宕机
+
+#### ②controller从/brokers/ids节点下读取可用broker
+
+#### ③controller获取set_p，该集合包含宕机broker的所有partition
+
+#### ④对每一个partition
+
+    从/brokers/topics/[topic]/partitions/[partition]/state节点读取ISR
+    决定新的leader
+    将leader，isr，controller_epoch和leader_epoch写入state节点
+
+#### ⑤通过RPC向相关broker发送leaderAndISRRequest命令
+
+# 十、为什么需要ISR
+
+## 分布式冗余备份的两种手段
+
+### 同步复制
+
+所有follower都复制成功，才算提交成功
+
+缺点：慢的follower会拖慢整个系统，同时follower故障导致HW无法完成递增
+
+### 异步复制
+
+leader副本收到消息就认为消息提交成功
+
+缺点：follower副本永远落后leader，从新leader选举会导致数据丢失
+
+### ISR
+kafka权衡了两种策略，引入ISR，解决上面两种问题
+
+如何解决：
+    
+    follower副本延迟高，leader副本将其踢出ISR，避免高延迟的拖累整个集群性能
+    
+    leader挂了，优先从ISR集合中选举leader副本，新的leader包含HW之前的所有消息
 
 
 
