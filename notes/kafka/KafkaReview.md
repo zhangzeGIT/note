@@ -8,6 +8,8 @@
 * [八、Kafka-Controller](#八Kafka-Controller)
 * [九、Broker-Failover](#九Broker-Failover)
 * [十、为什么需要ISR](#十为什么需要ISR)
+* [十一、GroupCoordinator](#十一GroupCoordinator)
+* [十二、ZeroCopy](#十二ZeroCopy)
 
 
 # 一、Kafka与MQ
@@ -250,6 +252,83 @@ kafka权衡了两种策略，引入ISR，解决上面两种问题
     
     leader挂了，优先从ISR集合中选举leader副本，新的leader包含HW之前的所有消息
 
+# 十一、GroupCoordinator
+### 作用
+0.9版本之前，consumer的Rebalance通过ZK实现
+
+为避免Rebalance存在不可避免的羊群效应和脑裂问题，kafka设计实现了Coordinator
+
+Coordinator提供对group成员的Rebalance及offset管理
+
+    维持group的成员组成，协调group成员的行为
+
+### 选举
+对于每一个ConsumerGroup，kafka为其从broker集群中选择一个broker作为其coordinator
+
+该分区leader所在的broker就是被选定的coordinator
+
+### 处理的请求类型
+
+  ApiKeys.OFFSET_COMMIT;
+  ApiKeys.OFFSET_FETCH;
+  ApiKeys.JOIN_GROUP;
+  ApiKeys.LEAVE_GROUP;
+  ApiKeys.SYNC_GROUP;
+  ApiKeys.DESCRIBE_GROUPS;
+  ApiKeys.LIST_GROUPS;
+  ApiKeys.HEARTBEAT;
+
+### offset管理
+
+offset位移管理
+
+    位移保存在_consumers_offsets的topic中
+    partition = Math.abs(groupId.hashCode) % groupMetaDataTopicPartitionCount
+    groupMetaDataTopicPartitionCount由offsets.topic.num.partitions指定，默认五十个分区
+
+offset commit
+
+    消费端一条offset提交消息会作为生产请求
+    broker端会处理这个请求
+    
+offset fetch
+
+    消费端连接任意存活的brokers，发送OffsetFetchRequest，包含多个topic-partitions
+    当前broker会寻找leader partition，进行请求转发，接收到请求的broker在offset manager中读取出offset
+    
+### Consumer Rebalance
+每次Rebalance之后，generation号都会加一
+#### ①Group寻找GroupCoordinator
+
+    会向集群中任意broker发送GroupCoordinatorRequest，处理并返回GroupCoordinatorResponse
+    该partition leader所在的broker就是该group对应的GroupCoordinator
+
+#### ②找到之后，发送JoinGroup
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/kafka/JoinGroup.png" width="500px">
+</div>
+
+#### ③JoinGroup返回之后，发送SyncGroup，得到自己所分配的partition
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/kafka/SyncGroup.png" width="500px">
+</div>
+
+#### 注
+
+    partition分配策略有client决定，第二步，coordinator会指定一个consumer作为leader
+    有leader进行partition的分配，leader通过SyncGroup消息，将分配结果发给coordinator
+    其他consumer也发送SyncGroup消息，获取这个分配结果
+
+
+# 十二、ZeroCopy
+
+日志存储分为多个FileMessage，当一个FileMessage的最大offset已经满足不了消费者时，直接返回，主要目的就是实现ZeroCopy
+
+<div align="center">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/kafka/ZeroCopy.png" width="700px">
+</div>
 
 
 
