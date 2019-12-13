@@ -18,6 +18,7 @@
 * [十八、spring-boot监视器](#十八spring-boot监视器)
 * [十九、spring-boot常用的starter有哪些](#十九spring-boot常用的starter有哪些)
 * [二十、spring-boot-starter加载过程](#二十spring-boot-starter加载过程)
+* [二十一、spring事务](#二十一spring事务)
 
 
 # 一、spring包含哪些模块
@@ -354,3 +355,13 @@ spring启动的时候添加@SpringBootApplication注解
      org.springframework.context.event.internalEventListenerFactory
      importConfig
      com.itpsc.entity.User
+
+# 二十一、spring事务
+@Transactional不加属性，只能在抛出RuntimeException或者error时才会触发事务回滚
+
+如果要在非RuntimeException时也触发回滚，需要在注解上添加rollbackFor = {Exception.class}
+
+
+
+
+
