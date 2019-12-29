@@ -122,7 +122,9 @@ Read View(读视图)
     
     主要做可见性判断，可能是当前最新数据，也可能是该行记录的undo log里面的某个版本数据
     
+    可重复读：事务启动的时候创建一个视图
     
+    读已提交：每次执行sql语句前重新生成一个视图
 
 InnoDB实现策略
 
@@ -145,6 +147,9 @@ InnoDB实现策略
             回滚指针指向undo log的副本记录
             事务提交，释放锁
     事务二：做同样的操作，只是最新的旧数据作为链表头
+
+参考：https://blog.csdn.net/Srodong/article/details/88820378
+
 <div align="center">
     <img src="https://github.com/zhangzeGIT/note/blob/master/assets/mysql/mvcc流程1.png" width="600px">
 </div>

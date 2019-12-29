@@ -386,7 +386,7 @@ zset和hash在对象比较少的时候，采用这种方式存储
 </div>
 
 <div align="center">
-    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/redis/Redis数据结构.png" width="650px">
+    <img src="https://github.com/zhangzeGIT/note/blob/master/assets/redis/Redis数据结构.png" width="800px">
 </div>
 
 

@@ -166,7 +166,7 @@ java堆：线程共享，存放对象实例
 
     将整个java堆划分成多个大小相等的独立区域（Region），新生代，老年代不再物理隔离
     
-    每个region通过自己的Remembered Set实现垃圾回收局部化而不会扩散到全局
+    每个region通过自己的Remembered Set实现垃圾回收局部化而不会扩散到全局，RS也记录region之间的引用
 
     初始标记：GC ROOTS能直接关联的对象，并修改TAMS（很快，stop the world）
     并发标记：可达性分析，找出存活对象（慢，与用户程序并发）
@@ -181,6 +181,16 @@ java堆：线程共享，存放对象实例
     年轻代会在-XX:G1NewSizePercent(默认为堆5%)与最大空间-XX:G1MaxNewSizePercent(默认60%)之间动态变化
     且由参数目标暂停时间-XX:MaxGCPauseMillis(默认200ms)，需要扩缩容大小以及分区的RSet计算得到
     G1依然可以设置固定年轻代大小（-XX:NewRatio），但同时暂停目标将失去意义
+    
+    GC状态流转顺序：Minor GC -> Minor GC + Concurrent Mark -> Mixed GC
+    
+    Minor GC:新生代GC，会涉及Remembered Set的处理
+    
+    Mixed GC:新生代和老年代GC，老年代Region数与总Region数的比值达到该值时，将在Mixed GC中清理老年代
+            -XX:G1MixedGCLiveThresholdPercent=85
+        设定Mixed GC中清理老年代内存的Region数（比例）
+            这是相对与总Region数的占比
+            -XX:G1OldCSetRegionThresholdPercent=10
     
     https://blog.csdn.net/coderlius/article/details/79272773
 
