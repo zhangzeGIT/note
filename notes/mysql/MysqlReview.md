@@ -149,6 +149,7 @@ InnoDB实现策略
     事务二：做同样的操作，只是最新的旧数据作为链表头
 
 参考：https://blog.csdn.net/Srodong/article/details/88820378
+     https://blog.csdn.net/weixin_29164497/article/details/114888104
 
 <div align="center">
     <img src="https://github.com/zhangzeGIT/note/blob/master/assets/mysql/mvcc流程1.png" width="600px">
